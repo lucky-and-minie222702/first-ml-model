@@ -5,8 +5,13 @@ const = {
     "logFile": "log.txt",
     "testFile": "mnist/mnist_test.csv",
     "trainFile": "mnist/mnist_train.csv",
-    "wihFile": "data/neuron_wih.txt",
-    "whoFile": "data/neuron_who.txt",
-    "biasWihFile": "data/bias_wih.txt",
-    "biasWhoFile": "data/bias_who.txt",
+    "dataPath": "data",
+    "wihFile": "neuron_wih.txt",
+    "whoFile": "neuron_who.txt",
+    "biasWihFile": "bias_wih.txt",
+    "biasWhoFile": "bias_who.txt",
+    "pretrainedPath": "pre_trained/",
+    "savePath": "test_log/",
+    "saveFile": "log.txt",
+    "dataRootPath": "mnist/"
 }
