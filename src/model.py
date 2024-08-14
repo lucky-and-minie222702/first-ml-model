@@ -51,7 +51,6 @@ class neuralNetwork:
         hinp = np.dot(self.wih, inp) + self.wihBias
         hout = self.acFunc(hinp)
         
-        # print(self.who.shape, np.dot(self.wih, inp).shape, np.dot(self.who, hout).shape, self.whoBias.shape)
         self.whoBias = self.whoBias.reshape((self.onodes, 1))
         finalInp = np.dot(self.who, hout) + self.whoBias
         finalOut = self.classifyFunc(finalInp)
@@ -65,13 +64,17 @@ class neuralNetwork:
         whoGradient = np.dot(deltaY, hout.T)
         whoBias = np.sum(deltaY, axis=0, keepdims=True)
         
-        wihGradient += 0.01 * self.wih
-        whoGradient += 0.01 * self.who
+        wihGradient += 0.001 * self.wih
+        whoGradient += 0.001 * self.who
         
         self.who -= self.lr * whoGradient
         self.wih -= self.lr * wihGradient
         self.wihBias -= self.lr * wihBias
         self.whoBias -= self.lr * whoBias
+        
+        if None in self.whoBias:
+            print("\n\nError")
+            exit()
         
         if autoSave:
             self.save()

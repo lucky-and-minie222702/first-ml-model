@@ -4,6 +4,7 @@ import os
 from os.path import dirname, basename
 import shutil        
 from const import const
+import sys
 
 def relu(inputs):
     return np.maximum(inputs, 0)
@@ -34,15 +35,27 @@ def createFile():
     f = open(const["biasWhoFile"], 'w')
     f.close()
     
+def applyLoad(path):
+    const["dataRootPath"] = path
+    const["trainFile"] = path + "/" + const["trainFile"]
+    const["testFile"] = path + "/" + const["testFile"]
+    
 def applyData(path):
     const["dataPath"] = path
     const["wihFile"] = path + "/" + const["wihFile"]
     const["whoFile"] = path + "/" + const["whoFile"] 
     const["biasWihFile"] = path + "/" + const["biasWihFile"]
-    const["biasWhoFile"] = path + "/" + const["biasWhoFile"]  
+    const["biasWhoFile"] = path + "/" + const["biasWhoFile"]    
 
-def forcedApply(dir):
-    const["wihFile"] = dir + str(dirname(dirname(const["wihFile"]))) + basename(const["wihFile"])
-    const["whoFile"] = dir + str(dirname(dirname(const["whoFile"]))) + basename(const["whoFile"])
-    const["biasWihFile"] = dir + str(dirname(dirname(const["biasWihFile"]))) + basename(const["biasWihFile"])
-    const["biasWhoFile"] = dir + str(dirname(dirname(const["biasWhoFile"]))) + basename(const["biasWhoFile"])
+def forcedApplySave(dir):
+    const["dataPath"] = dir
+    const["wihFile"] = dir + str(dirname(dirname(const["wihFile"]))) + "/" + basename(const["wihFile"])
+    const["whoFile"] = dir + str(dirname(dirname(const["whoFile"]))) + "/" + basename(const["whoFile"])
+    const["biasWihFile"] = dir + str(dirname(dirname(const["biasWihFile"]))) + "/" + basename(const["biasWihFile"])
+    const["biasWhoFile"] = dir + str(dirname(dirname(const["biasWhoFile"]))) + "/" + basename(const["biasWhoFile"])
+    
+def printProgress(percent, count, limit):
+    loaded = "=" * (percent//2)
+    unloaded = " " * (50 - (percent//2))
+    print(f"{percent:3d}% [{loaded}{unloaded}]", "Inputs:", count, "/", limit, end="\r")
+    sys.stdout.flush()
